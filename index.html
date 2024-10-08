@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        background: url('https://e1.pxfuel.com/desktop-wallpaper/317/919/desktop-wallpaper-ocean-or-sea-horizon-animated-background-water-surface-and-blue-sky-cartoon-cloud-background.jpg') no-repeat center center fixed; /* Set background to image */
+        background-size: cover; /* Cover entire background */
+        font-family: 'Press Start 2P', cursive; /* Retro-style pixel font (optional, ensure you load this) */
+    }
+
+    .menu {
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+        font-size: 3em;
+        color: #f0d500;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 0 #000;
+    }
+
+    button {
+        display: block;
+        margin: 10px auto;
+        padding: 15px 30px;
+        background-color: #2e4357;
+        color: #fff;
+        border: 3px solid #f0d500;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.2em;
+        width: 200px;
+    }
+
+    button:hover {
+        background-color: #64aae7;
+    }
+  </style>
+</head>
+<body>
+  
+
+    
+     <div class="menu">
+        <h1>Start Game</h1>
+        <button onclick="CPU()">1 Player</button>
+        <button onclick="TTT()">2 Players</button>
+        <button onclick="Exit()">Exit</button>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function TTT() {
+        window.location.href = 'Tictactoe.html'; // Replace with your game page
+    }
+
+    function CPU() {
+        window.location.href = 'Cpu.html'; // Replace with your game page
+    }
+
+
+    function Exit() {
+        window.location.href = 'exit.html'; // Exits the game by redirecting to a blank page
+    }
+</script>

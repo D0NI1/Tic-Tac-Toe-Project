@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 players</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #game {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+            margin-top: 20px; /* Move grid higher */
+        }
+
+        .cell {
+            width: 120px;
+            height: 110px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid transparent; /* Make border transparent initially */
+            border-radius: 10px; /* Rounded corners */
+            font-size: 3rem;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Added transition for box shadow */
+            background: linear-gradient(135deg, rgba(0, 128, 255, 0.1), rgba(255, 255, 255, 0.5)); /* Light gradient background */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        .cell:hover {
+            background-color: rgba(31, 167, 167, 0.3); /* Cyan hover effect */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            border: 3px solid rgba(0, 128, 255, 0.8); /* Visible border on hover */
+        }
+
+        h2 {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        select, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1rem;
+            border-radius: 5px; /* Rounded corners */
+            background-color: rgba(255, 255, 255, 0.1); /* Light cyan background on hover */
+            color: #000000; /* Light red text color on hover */
+            border: 2px solid #535353;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition */
+        }
+
+        select:hover, button:hover {
+            border: 2px solid #000000;
+            background-color: #686565;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        #scoreboard {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Popup message styling */
+        #popupMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none; /* Hidden by default */
+            z-index: 1000; /* Above other content */
+        }
+
+        /* Theme Styles (can be added as needed) */
+        /* Modern Theme */
+        body.modern {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        body.modern .cell {
+            background-color: white;
+            border-color: #333;
+        }
+        
+        /* Retro Theme */
+        body.retro {
+            background-color: #ffcc00;
+            color: #333;
+        }
+        body.retro .cell {
+            background-color: #333;
+            color: #ffcc00;
+            border-color: #ffcc00;
+        }
+
+        /* Classic Theme */
+        body.classic {
+            background-color: #000;
+            color: #fff;
+        }
+        body.classic .cell {
+            background-color: #fff;
+            color: #000;
+            border-color: #333;
+        }
+
+        /* Robotic Theme */
+        body.robotic {
+            background-color: #2a2a2a;
+            color: #0affff;
+        }
+        body.robotic .cell {
+            background-color: #444;
+            color: #0affff;
+            border-color: #0affff;
+        }
+
+        /* Nature Theme */
+        body.nature {
+            background-color: #e5ffe5;
+            color: #2b8a3e;
+        }
+        body.nature .cell {
+            background-color: #c3e6c3;
+            color: #2b8a3e;
+            border-color: #2b8a3e;
+        }
+
+        /* Solar Theme */
+        body.solar {
+            background-color: #282828;
+            color: #f39c12;
+        }
+        body.solar .cell {
+            background-color: #333;
+            color: #f39c12;
+            border-color: #f39c12;
+        }
+
+        /* Ocean Theme */
+        body.ocean {
+            background-color: #0077be;
+            color: #ffffff;
+        }
+        body.ocean .cell {
+            background-color: #005f8a;
+            color: #ffffff;
+            border-color: #005f8a;
+        }
+
+        body.neon {
+    background-color: #000;
+    color: #39ff14;
+}
+body.neon .cell {
+    background-color: #222;
+    color: #39ff14;
+    border-color: #39ff14;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+body.dark-mode .cell {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+body.pastel {
+    background-color: #f8f8f8;
+    color: #555;
+}
+body.pastel .cell {
+    background-color: #ffe5b4;
+    color: #d2691e;
+    border-color: #d2691e;
+}
+body.galaxy {
+    background-color: #000022;
+    color: #ffffff;
+}
+body.galaxy .cell {
+    background-color: #111133;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+body.vintage {
+    background-color: #f9f0e6;
+    color: #4b3d2b;
+}
+body.vintage .cell {
+    background-color: #e7d8c4;
+    color: #4b3d2b;
+    border-color: #4b3d2b;
+}
+body.candy {
+    background-color: #ffccff;
+    color: #660066;
+}
+body.candy .cell {
+    background-color: #ff99cc;
+    color: #660066;
+    border-color: #660066;
+}
+
+
+    </style>
+</head>
+<body class="modern">
+
+    <div id="container">
+        <h2 id="status">Player 1 Turn</h2>
+
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+            <select id="themeSelector">
+                <option value="modern">Default</option>
+                <option value="retro">Retro</option>
+                <option value="classic">Classic</option>
+                <option value="robotic">Robotic</option>
+                <option value="nature">Nature</option>
+                <option value="solar">Solar</option>
+                <option value="ocean">Ocean</option>
+                <option value="neon">Neon</option>
+                <option value="dark-mode">Dark Mode</option>
+                <option value="pastel">Pastel</option>
+                <option value="galaxy">Galaxy</option>
+                <option value="vintage">Vintage</option>
+                <option value="candy">Candy</option>                
+            </select>
+        </div>
+
+        <div id="scoreboard">
+            <p>Player 1 Wins: <span id="player1Score">0</span></p>
+            <p>Player 2 Wins: <span id="player2Score">0</span></p>
+            <p>Draws: <span id="drawScore">0</span></p>
+        </div>
+
+        <button id="resetScore">Reset Score</button>
+        <button id="resetBoard">Reset Board</button>
+
+        <div id="popupMessage"></div>
+
+        <div id="game">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+    </div>
+
+    <script>
+        const cells = document.querySelectorAll('.cell');
+        const statusText = document.getElementById('status');
+        const player1ScoreText = document.getElementById('player1Score');
+        const player2ScoreText = document.getElementById('player2Score');
+        const drawScoreText = document.getElementById('drawScore');
+        const resetScoreButton = document.getElementById('resetScore');
+        const resetBoardButton = document.getElementById('resetBoard');
+        const themeSelector = document.getElementById('themeSelector');
+        const popupMessage = document.getElementById('popupMessage');
+
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X'; // Player 1 starts with 'X'
+        let gameOver = false;
+        let player1Score = 0;
+        let player2Score = 0;
+        let drawScore = 0;
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        // Theme Switcher
+        themeSelector.addEventListener('change', () => {
+            document.body.className = themeSelector.value;
+        });
+
+        function checkWinner() {
+            for (let condition of winningConditions) {
+                const [a, b, c] = condition;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return board[a];
+                }
+            }
+            return board.includes('') ? null : 'Draw';
+        }
+
+        function resetBoard() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            cells.forEach(cell => {
+                cell.textContent = '';
+            });
+            gameOver = false;
+            currentPlayer = (Math.random() < 0.5) ? 'X' : 'O'; // Randomly decide who goes first
+            statusText.textContent = currentPlayer === 'X' ? 'Player 1 Turn' : 'Player 2 Turn';
+        }
+
+        // Reset Board Button Functionality
+        resetBoardButton.addEventListener('click', resetBoard);
+
+        function playerMove(index) {
+            if (board[index] === '' && !gameOver) {
+                board[index] = currentPlayer;
+                cells[index].textContent = currentPlayer;
+                let result = checkWinner();
+                if (result) {
+                    endGame(result);
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Switch player
+                    statusText.textContent = currentPlayer === 'X' ? 'Player 1 Turn' : 'Player 2 Turn';
+                }
+            }
+        }
+
+        function endGame(result) {
+            gameOver = true;
+            let message;
+            if (result === 'Draw') {
+                drawScore++;
+                message = "It's a draw!";
+            } else if (result === 'X') {
+                player1Score++;
+                message = 'Player 1 Wins!';
+            } else {
+                player2Score++;
+                message = 'Player 2 Wins!';
+            }
+            showPopupMessage(message);
+            updateScoreboard();
+            setTimeout(resetBoard, 2000); 
+        }
+
+        function showPopupMessage(message) {
+            popupMessage.textContent = message;
+            popupMessage.style.display = 'block';
+            setTimeout(() => {
+                popupMessage.style.display = 'none';
+            }, 2000); // Message will show for 2 seconds
+        }
+
+        function updateScoreboard() {
+            player1ScoreText.textContent = player1Score;
+            player2ScoreText.textContent = player2Score;
+            drawScoreText.textContent = drawScore;
+        }
+
+        // Reset Score Button Functionality
+        resetScoreButton.addEventListener('click', () => {
+            player1Score = 0;
+            player2Score = 0;
+            drawScore = 0;
+            updateScoreboard();
+        });
+
+        cells.forEach((cell, index) => {
+            cell.addEventListener('click', () => playerMove(index));
+        });
+
+        // Initial game setup
+        resetBoard(); // Start the first game
+    </script>
+</body>
+</html>
