@@ -9,16 +9,16 @@
         margin: 0;
         height: 100vh;
         display: flex;
-        justify-content: center;
-        align-items: center; 
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
         background: url('https://e1.pxfuel.com/desktop-wallpaper/317/919/desktop-wallpaper-ocean-or-sea-horizon-animated-background-water-surface-and-blue-sky-cartoon-cloud-background.jpg') no-repeat center center fixed; /* Set background to image */
-        background-size: cover;
-        font-family: 'Press Start 2P', cursive; 
+        background-size: cover; /* Cover entire background */
+        font-family: 'Press Start 2P', cursive; /* Retro-style pixel font (optional, ensure you load this) */
     }
 
     .menu {
         text-align: center;
-        background-color: rgba(0, 0, 0, 0.7); 
+        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -52,7 +52,7 @@
 <body>
   
 
- //menuja startuese   
+    
      <div class="menu">
         <h1>Start Game</h1>
         <button onclick="CPU()">1 Player</button>
@@ -63,18 +63,17 @@
 </body>
 </html>
 
-//skripti qe perdoret per funksionalitetin e butonave dhe ndrrimin e faqeve
 <script>
     function TTT() {
-        window.location.href = 'Tictactoe.html'; 
+        window.location.href = 'Tictactoe.html'; // Replace with your game page
     }
 
     function CPU() {
-        window.location.href = 'Cpu.html';
+        window.location.href = 'Cpu.html'; // Replace with your game page
     }
 
 
     function Exit() {
-        window.location.href = 'exit.html'; 
+        window.location.href = 'exit.html'; // Exits the game by redirecting to a blank page
     }
 </script>
