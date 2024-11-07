@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,7 @@
             grid-template-columns: repeat(3, 120px);
             grid-gap: 10px;
             margin-bottom: 20px;
-            margin-top: 20px;
+            margin-top: 20px; /* Move grid higher */
         }
 
         .cell {
@@ -37,19 +38,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 3px solid transparent; 
-            border-radius: 10px;
+            border: 3px solid transparent; /* Make border transparent initially */
+            border-radius: 10px; /* Rounded corners */
             font-size: 3rem;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-            background: linear-gradient(135deg, rgba(0, 128, 255, 0.1), rgba(255, 255, 255, 0.5));
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Added transition for box shadow */
+            background: linear-gradient(135deg, rgba(0, 128, 255, 0.1), rgba(255, 255, 255, 0.5)); /* Light gradient background */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
         }
 
         .cell:hover {
-            background-color: rgba(31, 167, 167, 0.3); 
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); 
-            border: 3px solid rgba(0, 128, 255, 0.8); 
+            background-color: rgba(31, 167, 167, 0.3); /* Cyan hover effect */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            border: 3px solid rgba(0, 128, 255, 0.8); /* Visible border on hover */
         }
 
         h2 {
@@ -61,17 +62,17 @@
             padding: 10px;
             margin: 5px;
             font-size: 1rem;
-            border-radius: 5px; 
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #000000; 
+            border-radius: 5px; /* Rounded corners */
+            background-color: rgba(255, 255, 255, 0.1); /* Light cyan background on hover */
+            color: #000000; /* Light red text color on hover */
             border: 2px solid #535353;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition */
         }
 
         select:hover, button:hover {
             border: 2px solid #000000;
             background-color: #686565;
-            cursor: pointer; 
+            cursor: pointer; /* Change cursor to pointer */
         }
 
         #scoreboard {
@@ -79,7 +80,7 @@
             text-align: center;
         }
 
-       //Mesazhi i rezultatit
+        /* Popup message styling */
         #popupMessage {
             position: fixed;
             top: 50%;
@@ -89,11 +90,11 @@
             color: white;
             padding: 20px;
             border-radius: 10px;
-            display: none;
-            z-index: 1000; 
+            display: none; /* Hidden by default */
+            z-index: 1000; /* Above other content */
         }
 
-        /* Ndryshimi i stilit te faqes */
+        /* Theme Styles (can be added as needed) */
         /* Modern Theme */
         body.modern {
             background-color: #f0f0f0;
@@ -300,7 +301,7 @@ body.candy .cell {
             [0, 4, 8], [2, 4, 6]
         ];
 
-        // Ndryshimi stilit
+        // Theme Switcher
         themeSelector.addEventListener('change', () => {
             document.body.className = themeSelector.value;
         });
@@ -321,11 +322,11 @@ body.candy .cell {
                 cell.textContent = '';
             });
             gameOver = false;
-            currentPlayer = (Math.random() < 0.5) ? 'X' : 'O'; Vendos kush luan i pari
+            currentPlayer = (Math.random() < 0.5) ? 'X' : 'O'; // Randomly decide who goes first
             statusText.textContent = currentPlayer === 'X' ? 'Player 1 Turn' : 'Player 2 Turn';
         }
 
-        // Resetimi i tabeles
+        // Reset Board Button Functionality
         resetBoardButton.addEventListener('click', resetBoard);
 
         function playerMove(index) {
@@ -336,7 +337,7 @@ body.candy .cell {
                 if (result) {
                     endGame(result);
                 } else {
-                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Ndrron lojtarin
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Switch player
                     statusText.textContent = currentPlayer === 'X' ? 'Player 1 Turn' : 'Player 2 Turn';
                 }
             }
@@ -365,7 +366,7 @@ body.candy .cell {
             popupMessage.style.display = 'block';
             setTimeout(() => {
                 popupMessage.style.display = 'none';
-            }, 2000); // 
+            }, 2000); // Message will show for 2 seconds
         }
 
         function updateScoreboard() {
@@ -374,7 +375,7 @@ body.candy .cell {
             drawScoreText.textContent = drawScore;
         }
 
-        // Resetimi i rezultateve
+        // Reset Score Button Functionality
         resetScoreButton.addEventListener('click', () => {
             player1Score = 0;
             player2Score = 0;
@@ -386,8 +387,8 @@ body.candy .cell {
             cell.addEventListener('click', () => playerMove(index));
         });
 
-        // Setupi i lojes
-        resetBoard(); // Fillon lojen
+        // Initial game setup
+        resetBoard(); // Start the first game
     </script>
 </body>
 </html>
